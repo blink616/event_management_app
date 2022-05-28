@@ -20,10 +20,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   // our form key
   final _formKey = GlobalKey<FormState>();
+
   // editing Controller
   final firstNameEditingController = TextEditingController();
   final secondNameEditingController = TextEditingController();
+  final deptEditingController = TextEditingController();
   final emailEditingController = TextEditingController();
+  final aboutEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
 
@@ -69,6 +72,53 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           hintText: "Second Name",
+        ));
+
+    //dept field
+    final deptField = TextFormField(
+        autofocus: false,
+        controller: deptEditingController,
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          RegExp regex = RegExp(r'^.{3,}$');
+          if (value!.isEmpty) {
+            return ("Department cannot be Empty");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("Enter Valid Department(Min. 3 Character)");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          deptEditingController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          hintText: "Department",
+        ));
+
+    //dept field
+    final aboutField = TextFormField(
+        autofocus: false,
+        controller: aboutEditingController,
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          RegExp regex = RegExp(r'^.{10,}$');
+          if (value!.isEmpty) {
+            return ("About cannot be Empty");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("Enter Valid About(Min. 10 Character)");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          deptEditingController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          hintText: "About",
+
         ));
 
     //email field
@@ -184,7 +234,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     const SizedBox(height: 20),
                     secondNameField,
                     const SizedBox(height: 20),
+                    deptField,
+                    const SizedBox(height: 20),
                     emailField,
+                    const SizedBox(height: 20),
+                    aboutField,
                     const SizedBox(height: 20),
                     passwordField,
                     const SizedBox(height: 20),

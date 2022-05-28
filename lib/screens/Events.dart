@@ -9,79 +9,64 @@ import 'package:nust_hub_1/screens/EventList.dart';
 import 'EventList.dart';
 import "EventPage.dart";
 
-
-
-
-
 class EventCard extends StatelessWidget {
   EventModel? event;
-  
-  
+
   EventCard({this.event});
 
   void initState() {
     print("EVENTS");
     print(event);
-  
-}
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
         Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>  EventPage(event: event)),
-            );
+          context,
+          MaterialPageRoute(builder: (context) => EventPage(event: event)),
+        );
       },
       child: Container(
-        margin: EdgeInsets.all(20),
-        height: 150,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset('assets/images/society.jpg'),
-              ),
+          height: 150,
+          margin: const EdgeInsets.only(bottom:20, left:20, right:20, top:30),
+          decoration: BoxDecoration(
+            borderRadius: new BorderRadius.all(
+              Radius.circular(10.0),
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                  height: 120,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
-                      gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.7),
-                            Colors.transparent
-                          ]))),
+            image: DecorationImage(
+              image: AssetImage('assets/images/society.jpg'),
+              fit: BoxFit.cover,
             ),
-            Positioned(
-              bottom: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    // CategoryIcon(
-                    //     color: this.category!.color,
-                    //     iconName: this.category!.icon),
-                    SizedBox(width: 10),
-                    Text(this.event!.name!,
-                        style: TextStyle(color: Colors.white, fontSize: 25))
-                  ],
+            boxShadow: [
+              new BoxShadow(
+                color: Colors.black,
+                blurRadius: 6.0,
+                spreadRadius: 0, //extend the shadow
+                offset: Offset(
+                  5.0, // Move to right 10  horizontally
+                  5.0, // Move to bottom 10 Vertically
                 ),
               ),
-            )
-          ],
-        )),
+            ],
+          ),
+          child: Column(
+
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    this.event!.name!,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 30,
+                        color: Colors.white, fontFamily: 'Teko'),
+                  ),
+
+            ],
+          )),
+
     );
   }
 }

@@ -11,7 +11,6 @@ class Explore extends StatelessWidget {
   Iterable<EventModel>? events;
 
   Future<Iterable<EventModel>?> getData() async {
-    
     CollectionReference _collectionRef = FirebaseFirestore.instance
         .collection('events'); // Get docs from collection reference
     QuerySnapshot querySnapshot = await _collectionRef.get();
@@ -23,45 +22,39 @@ class Explore extends StatelessWidget {
     print("LMAO");
     print(events?.elementAt(0).description);
     return events;
-    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-         Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 10),
-          child: Text('Society Listings',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Color(0X0000FF))
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(
+          'Explore Events',
+          style: TextStyle(color: Colors.white),
         ),
-        Expanded(
-          child: FutureBuilder(
+        centerTitle: true,
+      ),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        FutureBuilder(
             future: getData(),
             builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
               if (asyncSnapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                return  ListView.builder(
-            itemCount: events?.length,
-            itemBuilder: (BuildContext ctx, int index) {
-              return EventCard(
-                event: events?.elementAt(index),
-                
-                
-              );
-            });
-              };
-            })
-                      
-        )
-      ]
-    ),
+                return Expanded(
+                    child: ListView.builder(
+                        itemCount: events?.length,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          return EventCard(
+                            event: events?.elementAt(index),
+
+                          );
+
+                        }));
+              }
+            }),
+      ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class EventPage extends StatefulWidget {
   EventModel? event;
+
   EventPage({this.event});
 
   @override
@@ -14,104 +15,119 @@ class EventPage extends StatefulWidget {
 
 class _EventPageState extends State<EventPage> {
   EventModel? event;
+
   _EventPageState({this.event});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NUST HUB'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-            child: Column(children: [
-          SizedBox(height: 15),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset('assets/images/society.jpg'),
-          ),
-          SizedBox(height: 5),
-          Text(
-            this.event!.name!,
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 40,
-                color: Colors.blueAccent),
-
-          ),
-          SizedBox(height: 10),
-              Text(
-                         "ABOUT",
-                          style: TextStyle(
-                
-                  fontWeight: FontWeight.w600,
-                  fontSize: 30,
-                  color: Colors.blueAccent),
+        body: Container(
+      margin: const EdgeInsets.only(top: 70),
+      padding: const EdgeInsets.all(0),
+      height: 1000.0,
+      width: 500.0,
+      // alignment: FractionalOffset.center,
+      child: Column(
+        //alignment:new Alignment(x, y)
+        children: <Widget>[
+          Container(
+            height: 350,
+            margin: const EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              borderRadius: new BorderRadius.all(
+                Radius.circular(40.0),
               ),
-          
-          
-              SizedBox(height: 10),
-              
-              Container(
-                width: 200,
-                child: Expanded(
-                  child: Text(
-
-                            this.event!.description!,
-                            style: TextStyle(
-                              
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                    color: Colors.blueAccent),
-                    
-                          ),
+              image: DecorationImage(
+                image: AssetImage('assets/images/society.jpg'),
+                fit: BoxFit.cover,
+              ),
+              boxShadow: [
+                new BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 6.0,
+                  spreadRadius: 0, //extend the shadow
+                  offset: Offset(
+                    5.0, // Move to right 10  horizontally
+                    5.0, // Move to bottom 10 Vertically
+                  ),
                 ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                this.event!.name!,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 30,
+                    color: Colors.blueAccent),
               ),
-          
-          
-        
-          SizedBox(height: 10),
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.calendar_month, color: Colors.blueAccent,),
-              SizedBox(width: 10,),
-              Text(
-            this!.event!.date!,
+            children: <Widget>[
+              Icon(
+                Icons.calendar_month,
+                color: Colors.blueAccent,
+              ),
+              Text(this!.event!.date!),
+            ],
+          ),
+          SizedBox(height: 30),
+          Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.only(left: 20, right: 20),
+            color: Colors.grey[200],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.house_outlined,
+                  color: Colors.blueAccent,
+                ),
+                Text(" "),
+                Text(this!.event!.society_name!),
+                SizedBox(width: 20),
+                Text("|"),
+                SizedBox(width: 20),
+                Icon(
+                  Icons.price_change_outlined,
+                  color: Colors.blueAccent,
+                ),
+                Text(" Rs. "),
+                Text(this!.event!.ticket_price!),
+              ],
+            ),
+          ),
+          SizedBox(height: 40),
+          Text(
+            "ABOUT",
             style: TextStyle(
-              
-                fontWeight: FontWeight.w400,
-                fontSize: 20,
-                color: Colors.blueAccent),
-                
+                fontWeight: FontWeight.w600, fontSize: 20, color: Colors.black),
           ),
-          ],
+          Container(
+            padding: const EdgeInsets.only(left: 35, right: 35),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Flexible(
+                  child: Text(
+                    this.event!.description!,
+                    softWrap: true,
+                    maxLines: 5,
+                    overflow: TextOverflow.fade,
+                  ),
+                ),
+              ],
+            ),
           ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.price_change, color: Colors.blueAccent,),
-              SizedBox(width: 10,),
-              Text(
-            "Rs. " + this!.event!.ticket_price! + "/-",
-            style: TextStyle(
-              
-                fontWeight: FontWeight.w400,
-                fontSize: 20,
-                color: Colors.blueAccent),
-                
-          ),
-          ],
-          ),
-          SizedBox(height: 50),
-          ElevatedButton(onPressed: (){}, 
-          child: Text("Buy Tickets")
-          )
-          
-          
-        ])),
+          SizedBox(height: 40),
+          ElevatedButton(onPressed: () {}, child: Text("Buy Tickets"))
+        ],
       ),
-    );
+    ));
   }
 }
