@@ -37,7 +37,7 @@ class EventCard extends StatelessWidget {
           boxShadow: [
             new BoxShadow(
               color: Colors.black,
-              blurRadius: 6.0,
+              blurRadius: 3.0,
               spreadRadius: 0, //extend the shadow
               offset: Offset(
                 3.0, // Move to right 10  horizontally
