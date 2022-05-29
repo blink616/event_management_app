@@ -24,7 +24,7 @@ class _EventPageState extends State<EventPage> {
         body: Container(
         margin: const EdgeInsets.only(top: 70),
         padding: const EdgeInsets.all(0),
-        height: 1000.0,
+        height: 1500.0,
         width: 500.0,
         // alignment: FractionalOffset.center,
         child: Column(
