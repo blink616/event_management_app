@@ -44,13 +44,21 @@ class ProfilePageState extends State<ProfilePage> {
   }
 
   //function to push edit page in navigator
-  void editPageFunction() {
-    Navigator.push(
+  void editPageFunction() async{
+    final result = await Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) =>
               EditPage(name: name, dept: dept, email: email, about: about)),
     );
+
+    setState(() {
+      name = result[0];
+      email = result[1];
+      dept = result[2];
+      about = result[3];
+
+    });
   }
 
   @override

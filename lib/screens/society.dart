@@ -17,7 +17,8 @@ class Societies extends StatefulWidget {
 class _SocietiesState extends State<Societies> {
   @override
   Widget build(BuildContext context) {
-    List<String> society = ["NMC", "Aisec", "ACM"];
+    List<String> society = ['AIESEC', 'IEEE', 'NCBS', 'NMC', 'NCSC', 'NMX', 'ACM', 'NFAC'];
+    var society_pics = {'NCSC': 'assets/images/NCSC.jpg', 'NMX': 'assets/images/NMX.jpg', 'ACM': 'assets/images/ACM.jpg', 'NFAC': 'assets/images/NFAC.jpg', 'AIESEC': 'assets/images/AIESEC.png', 'IEEE': 'assets/images/IEEE.jpg', 'NCBS': 'assets/images/NCBS.jpg', 'NMC': 'assets/images/NMC.jpg'};
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -34,7 +35,7 @@ class _SocietiesState extends State<Societies> {
             child: ListView.builder(
               itemCount: society.length,
               itemBuilder: (BuildContext ctx, int index) {
-                return SocietyCard(society: society[index]);
+                return SocietyCard(society: society[index], pic: society_pics[society[index]]);
               },
             ),
           ),
@@ -46,8 +47,8 @@ class _SocietiesState extends State<Societies> {
 
 class SocietyCard extends StatelessWidget {
   String? society;
-
-  SocietyCard({this.society});
+  String? pic;
+  SocietyCard({this.society, this.pic});
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class SocietyCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(1), BlendMode.dstATop),
-                image: AssetImage("assets/images/society.jpg"),
+                image: AssetImage(this.pic!),
               ),
             ),
             child: Stack(

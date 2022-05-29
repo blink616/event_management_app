@@ -6,13 +6,15 @@ class EditPage extends StatefulWidget {
   var email;
   var dept;
   var about;
+  var societies;
 
   EditPage(
       {Key? key,
       @required this.name,
       @required this.dept,
       @required this.about,
-      @required this.email})
+      @required this.email,
+      @required this.societies})
       : super(key: key);
 
   @override
@@ -25,6 +27,10 @@ class EditPageState extends State<EditPage> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController deptController = new TextEditingController();
   TextEditingController aboutController = new TextEditingController();
+
+  //societies list
+  //dropdown of societies
+  final items = ['NCSC', 'NMX', 'ACM', 'NFAC', 'AIESEC', 'IEEE', 'NCBS', 'NMC'];
 
   @override
   void initState() {
@@ -41,7 +47,8 @@ class EditPageState extends State<EditPage> {
     print(emailController.text);
     print(deptController.text);
     print(aboutController.text);
-    Navigator.pop(context);
+    List<String> result = [nameController.text, emailController.text,deptController.text,aboutController.text];
+    Navigator.pop(context, result);
   }
 
   @override
