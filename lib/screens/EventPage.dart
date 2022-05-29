@@ -17,15 +17,18 @@ class EventPage extends StatefulWidget {
 class _EventPageState extends State<EventPage> {
   EventModel? event;
   String? _imageUrl;
+
   _EventPageState({this.event});
-  Future<String> downloadURL() async{
-     
-     
-     final ref = await FirebaseStorage.instance.ref().child(event!.name.toString()).child(event!.imageUrl.toString());
-     _imageUrl = await ref.getDownloadURL();
-     print(downloadURL());
-     return _imageUrl.toString();
-   }
+
+  Future<String> downloadURL() async {
+    final ref = await FirebaseStorage.instance
+        .ref()
+        .child(event!.name.toString())
+        .child(event!.imageUrl.toString());
+    _imageUrl = await ref.getDownloadURL();
+    print(downloadURL());
+    return _imageUrl.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +43,42 @@ class _EventPageState extends State<EventPage> {
         //alignment:new Alignment(x, y)
         children: <Widget>[
           Container(
-            height: 250,
+            height: 350,
             margin: const EdgeInsets.all(30),
-            
-            
-                  child: FutureBuilder(
-            future: downloadURL(),
-            builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
-              if (asyncSnapshot.data == null) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return Expanded(
-                    child: Image.network(_imageUrl.toString(),
-                    width: 100,
-                    height: 100,));
-              }
-            }) ,
+            child: FutureBuilder(
+                future: downloadURL(),
+                builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
+                  if (asyncSnapshot.data == null) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return Container(
+                      height: 350,
+                      margin: const EdgeInsets.all(30),
+                      decoration: BoxDecoration(
+                        borderRadius: new BorderRadius.all(
+                          Radius.circular(40.0),
+                        ),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            _imageUrl.toString(),
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                        boxShadow: [
+                          new BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 6.0,
+                            spreadRadius: 0, //extend the shadow
+                            offset: Offset(
+                              5.0, // Move to right 10  horizontally
+                              5.0, // Move to bottom 10 Vertically
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                }),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

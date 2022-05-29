@@ -8,12 +8,22 @@ import '../models/events_model.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 import './home.dart';
+import 'package:nust_hub_1/models/user_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nust_hub_1/screens/Events.dart';
 
-class Explore extends StatelessWidget {
+class Explore extends StatefulWidget {
+   UserModel? user;
+
+  Explore({this.user});
+
+  @override
+  ExplorePage createState() => ExplorePage();
+}
+
+class ExplorePage extends State<Explore> {
   Iterable<EventModel>? events;
 
   Future<Iterable<EventModel>?> getData() async {
@@ -27,11 +37,11 @@ class Explore extends StatelessWidget {
     events = allData.map((e) => EventModel.fromMap(e));
     print("LMAO");
     //print(events?.elementAt(0).description);
-    
+
     return events;
   }
 
-  
+
 
   @override
   Widget build(BuildContext context) {
@@ -154,9 +164,9 @@ class _MyDialogState extends State<MyDialog> {
       String fileName = path.basename(_image!.path);
       FirebaseStorage storage = FirebaseStorage.instance;
       Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(event_name.toString()).child(fileName);
-      UploadTask uploadTask = firebaseStorageRef.putFile(_image!);   
+      UploadTask uploadTask = firebaseStorageRef.putFile(_image!);
       link = fileName;
-      
+
     }
     return AlertDialog(
         title: Text("Create New Event"),
