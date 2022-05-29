@@ -16,6 +16,7 @@ class ProfilePageState extends State<ProfilePage> {
   var dept = 'SEECS';
   var about =
       'sd ul ;ewklfw kfl;wekfl;kwe l;fkll;rkfl;ewk fl;wkel;fk w el; ere';
+  List<String> societies = <String>['NCSC', 'NMX', 'ACM', 'NFAC'];
 
   //function to create societies row
   Widget _buildRow(String sname) {
@@ -154,9 +155,7 @@ class ProfilePageState extends State<ProfilePage> {
                           spacing: 10.0,
                           runSpacing: 20.0,
                           children: <Widget>[
-                            _buildRow('NCSC'),
-                            _buildRow('NMX'),
-                            _buildRow('NCSC'),
+                            for (var item in societies) _buildRow(item),
                           ],
                         ),
                       ],
@@ -170,7 +169,6 @@ class ProfilePageState extends State<ProfilePage> {
                         width: 1,
                       ),
                       color: Colors.white,
-
                     ),
                     padding: const EdgeInsets.only(
                         top: 10, right: 15, left: 15, bottom: 30),
