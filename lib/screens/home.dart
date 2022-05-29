@@ -38,9 +38,9 @@ class _HomeState extends State<Home> {
         .get()
         .then((value) {
       loggedInUser = UserModel.fromMap(value.data());
-      print(loggedInUser.firstName);
+      print(loggedInUser.name);
       setState(() {
-        currentUser = loggedInUser.firstName! + ' ' + loggedInUser.secondName!;
+        currentUser = loggedInUser.name!;
       });
     });
   }
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
     final List<Widget> _widgetOptions = <Widget>[
       Societies(),
       Explore(),
-      ProfilePage(),
+      ProfilePage(loggedInUser: loggedInUser),
     ];
 
     return Scaffold(

@@ -1,28 +1,46 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'editPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  var loggedInUser;
+  ProfilePage({Key? key, @required this.loggedInUser}) : super(key: key);
 
   @override
   ProfilePageState createState() => ProfilePageState();
 }
 
 class ProfilePageState extends State<ProfilePage> {
+  //firebase authorization
+  final _auth = FirebaseAuth.instance;
+
   //variables
-  var name = 'UME HANI';
-  var email = 'email@email.edu.pk';
-  var dept = 'SEECS';
-  var about =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-  List<String> societies = <String>['NCSC', 'NMX', 'ACM', 'NFAC'];
+  var name ;
+  var email;
+  var dept;
+  var about;
+  var societies;
+
+  @override
+  void initState() {
+    //super.initState();
+    print("THISSS" + widget.loggedInUser.name);
+    name = widget.loggedInUser.name;
+    email = widget.loggedInUser.email;
+    dept = widget.loggedInUser.dept;
+    about = widget.loggedInUser.about;
+    societies = widget.loggedInUser.societies;
+  }
 
   //function to create societies row
   Widget _buildRow(String sname) {
     return Container(
       height: 40,
-      width: 70,
+      width: 80,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
@@ -49,7 +67,7 @@ class ProfilePageState extends State<ProfilePage> {
       context,
       MaterialPageRoute(
           builder: (context) =>
-              EditPage(name: name, dept: dept, email: email, about: about)),
+              EditPage(name: name, dept: dept, email: email, about: about, societies:societies)),
     );
 
     setState(() {
@@ -57,6 +75,7 @@ class ProfilePageState extends State<ProfilePage> {
       email = result[1];
       dept = result[2];
       about = result[3];
+      societies = result[4];
     });
   }
 
