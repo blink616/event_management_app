@@ -1,20 +1,24 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nust_hub_1/screens/society.dart';
+import 'package:nust_hub_1/screens/ProfilePage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../screens/ExploreEvents.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final UserModel? user;
+   Home( {this.user});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+
+  
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   String currentUser = "";
@@ -37,9 +41,9 @@ class _HomeState extends State<Home> {
         .get()
         .then((value) {
       loggedInUser = UserModel.fromMap(value.data());
-      print(loggedInUser.firstName);
+      print(loggedInUser.name);
       setState(() {
-        currentUser = loggedInUser.firstName! + ' ' + loggedInUser.secondName!;
+        currentUser = loggedInUser.name!;
       });
     });
   }
@@ -50,7 +54,7 @@ class _HomeState extends State<Home> {
     final List<Widget> _widgetOptions = <Widget>[
       Societies(),
       Explore(),
-      Text("Third Screen")
+      ProfilePage(user: loggedInUser),
     ];
 
     return Scaffold(

@@ -4,14 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nust_hub_1/models/events_model.dart';
+import '../models/events_model.dart';
+import 'dart:io';
+import 'package:path/path.dart' as path;
+import './home.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nust_hub_1/screens/Events.dart';
 
 class Explore extends StatelessWidget {
   Iterable<EventModel>? events;
 
   Future<Iterable<EventModel>?> getData() async {
-    
     CollectionReference _collectionRef = FirebaseFirestore.instance
         .collection('events'); // Get docs from collection reference
     QuerySnapshot querySnapshot = await _collectionRef.get();
@@ -21,47 +26,44 @@ class Explore extends StatelessWidget {
 
     events = allData.map((e) => EventModel.fromMap(e));
     print("LMAO");
-    print(events?.elementAt(0).description);
-    return events;
+    //print(events?.elementAt(0).description);
     
+    return events;
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-         Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 10),
-          child: Text('Society Listings',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Color(0X0000FF))
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(
+          'Explore Events',
+          style: TextStyle(color: Colors.white),
         ),
-        Expanded(
-          child: FutureBuilder(
+        centerTitle: true,
+      ),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        FutureBuilder(
             future: getData(),
             builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
               if (asyncSnapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                return  ListView.builder(
-            itemCount: events?.length,
-            itemBuilder: (BuildContext ctx, int index) {
-              return EventCard(
-                event: events?.elementAt(index),
-                
-                
-              );
-            });
-              };
-            })
-                      
-        )
-      ]
-    ),
+                return Expanded(
+                    child: ListView.builder(
+                        itemCount: events?.length,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          return EventCard(
+                            event: events?.elementAt(index),
+
+                          );
+
+                        }));
+              }
+            }),
+      ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -94,6 +96,8 @@ class _MyDialogState extends State<MyDialog> {
   String? society_name;
   String? formattedDate;
   Iterable<EventModel>? events;
+    File? _image;
+  String? link;
 
   postDetailsToFirestore() async {
     // calling our firestore
@@ -108,7 +112,8 @@ class _MyDialogState extends State<MyDialog> {
       "society_name": society_name,
       "description": event_description,
       "date": formattedDate,
-      "ticket_price": event_ticketprice
+      "ticket_price": event_ticketprice,
+      "imageUrl": link
     });
 
     Fluttertoast.showToast(msg: "Event Added");
@@ -135,11 +140,30 @@ class _MyDialogState extends State<MyDialog> {
 
   @override
   Widget build(BuildContext context) {
+
+        final ImagePicker _picker = ImagePicker();
+     Future getImage() async {
+       var image = await _picker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        _image = File( image!.path );;
+          print('Image Path $_image');
+      });
+    }
+
+     Future uploadPic() async{
+      String fileName = path.basename(_image!.path);
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(event_name.toString()).child(fileName);
+      UploadTask uploadTask = firebaseStorageRef.putFile(_image!);   
+      link = fileName;
+      
+    }
     return AlertDialog(
         title: Text("Create New Event"),
         actions: <Widget>[
           ElevatedButton(
             onPressed: () {
+              uploadPic();
               postDetailsToFirestore();
               Navigator.of(context).pop();
             },
@@ -148,6 +172,50 @@ class _MyDialogState extends State<MyDialog> {
         ],
         content: SingleChildScrollView(
             child: Column(children: [
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 20.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.center,
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Color(0xff476cfb),
+                      child: ClipOval(
+                        child: new SizedBox(
+                          width: 180.0,
+                          height: 180.0,
+                          child: (_image!=null)?Image.file(
+                            _image!,
+                            fit: BoxFit.fill,
+                          ):Image.network(
+                            "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 60.0),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.camera,
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        getImage();
+                      },
+                    ),
+                  ),
+                ],
+              )]),
           TextField(
             decoration: new InputDecoration(hintText: 'Event Name'),
             onChanged: (value) => setState(() {

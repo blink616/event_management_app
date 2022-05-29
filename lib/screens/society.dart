@@ -15,108 +15,114 @@ class Societies extends StatefulWidget {
 }
 
 class _SocietiesState extends State<Societies> {
-
-  
   @override
   Widget build(BuildContext context) {
-    List<String> society= [
-    "NMC", "Aisec", "ACM"
-  ];
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-         Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 10),
-          child: Text('Society Listings',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Color(0X0000FF))
-          ),
+    List<String> society = ['AIESEC', 'IEEE', 'NCBS', 'NMC', 'NCSC', 'NMX', 'ACM', 'NFAC'];
+    var society_pics = {'NCSC': 'assets/images/NCSC.jpg', 'NMX': 'assets/images/NMX.jpg', 'ACM': 'assets/images/ACM.jpg', 'NFAC': 'assets/images/NFAC.jpg', 'AIESEC': 'assets/images/AIESEC.png', 'IEEE': 'assets/images/IEEE.jpg', 'NCBS': 'assets/images/NCBS.jpg', 'NMC': 'assets/images/NMC.jpg'};
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(
+          'Society Listing',
+          style: TextStyle(color: Colors.white),
         ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: society.length,
-            itemBuilder: (BuildContext ctx, int index) {
-              return SocietyCard(
-                society: society[index]
-                
-                
-              );
-            },
+        centerTitle: true,
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: society.length,
+              itemBuilder: (BuildContext ctx, int index) {
+                return SocietyCard(society: society[index], pic: society_pics[society[index]]);
+              },
+            ),
           ),
-        )
-      ]
+        ],
+      ),
     );
   }
 }
 
-
-
-
-
-
 class SocietyCard extends StatelessWidget {
-  
   String? society;
-  
-  SocietyCard({this.society});
+  String? pic;
+  SocietyCard({this.society, this.pic});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
         Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>  EventList(society: society)),
-            );
+          context,
+          MaterialPageRoute(builder: (context) => EventList(society: society)),
+        );
       },
       child: Container(
-        margin: EdgeInsets.all(20),
-        height: 150,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset('assets/images/society.jpg'),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                  height: 120,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
-                      gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.7),
-                            Colors.transparent
-                          ]))),
-            ),
-            Positioned(
-              bottom: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    // CategoryIcon(
-                    //     color: this.category!.color,
-                    //     iconName: this.category!.icon),
-                    SizedBox(width: 10),
-                    Text(this.society!,
-                        style: TextStyle(color: Colors.white, fontSize: 25))
-                  ],
+        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+        margin: const EdgeInsets.only(bottom: 1),
+        height: 170,
+        child: Card(
+          child: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                new BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 6.0,
+                  spreadRadius: 0.0, //extend the shadow
+                  offset: Offset(
+                    5.0, // Move to right 10  horizontally
+                    5.0, // Move to bottom 10 Vertically
+                  ),
                 ),
+              ],
+              //border: Border.all(color: Colors.black, width: 1),
+              color: const Color(0xff7c94b6),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(1), BlendMode.dstATop),
+                image: AssetImage(this.pic!),
               ),
-            )
-          ],
-        )),
+            ),
+            child: Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Text(
+                    this.society!,
+                    style: TextStyle(
+                      fontSize: 30,
+                      letterSpacing: 3,
+                      fontFamily: 'Teko',
+                      fontWeight: FontWeight.bold,
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 2
+                        ..color = Colors.black,
+                    ),
+                  ),
+                ),
+                // The text inside
+                Container(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Text(
+                    this.society!,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontFamily: 'Teko',
+                      letterSpacing: 3,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

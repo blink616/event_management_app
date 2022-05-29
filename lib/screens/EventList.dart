@@ -39,7 +39,7 @@ class EventList extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(color: Color(0X0000FF))
           ),
-          
+
         ),
         Expanded(
         child: ListView.builder(
@@ -65,9 +65,9 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      
+
         onTap: () {
-        
+
         Navigator.push(
               context,
               MaterialPageRoute(builder: (context) =>  EventPage(event: event)),

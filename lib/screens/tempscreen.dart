@@ -1,23 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:nust_hub_1/models/events_model.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class EventPage extends StatefulWidget {
-  EventModel? event;
-
-  EventPage({this.event});
-
-  @override
-  State<EventPage> createState() => _EventPageState(event: event);
-}
-
-class _EventPageState extends State<EventPage> {
-  EventModel? event;
-
-  _EventPageState({this.event});
-
+class tempscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +43,7 @@ class _EventPageState extends State<EventPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                this.event!.name!,
+                "CARNIVAL",
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 30,
@@ -69,36 +54,25 @@ class _EventPageState extends State<EventPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(
-                Icons.calendar_month,
-                color: Colors.blueAccent,
-              ),
-              Text(this!.event!.date!),
+              Text("Date:"),
+              Text("22/22/2124"),
             ],
           ),
           SizedBox(height: 30),
           Container(
             padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.only(left: 20, right: 20),
+            margin: const EdgeInsets.only(left:20,right:20),
             color: Colors.grey[200],
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(
-                  Icons.house_outlined,
-                  color: Colors.blueAccent,
-                ),
-                Text(" "),
-                Text(this!.event!.society_name!),
+                Text("SOCIETY: "),
+                Text("NMX"),
                 SizedBox(width: 20),
                 Text("|"),
                 SizedBox(width: 20),
-                Icon(
-                  Icons.price_change_outlined,
-                  color: Colors.blueAccent,
-                ),
-                Text(" Rs. "),
-                Text(this!.event!.ticket_price!),
+                Text("TICKET PRICE: RS. "),
+                Text("1000"),
               ],
             ),
           ),
@@ -115,9 +89,9 @@ class _EventPageState extends State<EventPage> {
               children: <Widget>[
                 Flexible(
                   child: Text(
-                    this.event!.description!,
+                    "This event is a entertainment event for nustians. They can buy food. There are swings to take rides on.",
                     softWrap: true,
-                    maxLines: 5,
+                    maxLines:5,
                     overflow: TextOverflow.fade,
                   ),
                 ),
@@ -125,9 +99,25 @@ class _EventPageState extends State<EventPage> {
             ),
           ),
           SizedBox(height: 40),
-          ElevatedButton(onPressed: () {}, child: Text("Buy Tickets"))
+          ElevatedButton(onPressed: (){},
+              child: Text("Buy Tickets")
+          )
         ],
       ),
     ));
+
+    //Container(
+
+    //  child: Container(
+    //    height: 350,
+    //    decoration: BoxDecoration(
+    //      image: DecorationImage(
+    //        image: AssetImage('assets/images/society.jpg'),
+    //        fit: BoxFit.cover,
+    //      ),
+    //    ),
+    //  ),
+    //),
+    //);
   }
 }

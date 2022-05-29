@@ -4,8 +4,9 @@ class EventModel {
   String? description;
   String? date;
   String? ticket_price;
+  String? imageUrl;
 
-  EventModel({this.name, this.society_name, this.description, this.date, this.ticket_price});
+  EventModel({this.name, this.society_name, this.description, this.date, this.ticket_price, this.imageUrl});
 
   // receiving data from server
   factory EventModel.fromMap(map) {
@@ -14,7 +15,8 @@ class EventModel {
       society_name: map['society_name'],
       date: map['date'],
       description: map['description'],
-      ticket_price: map['ticket_price']
+      ticket_price: map['ticket_price'],
+      imageUrl: map['imageUrl'],
     );
   }
 
@@ -25,7 +27,8 @@ class EventModel {
       'society_name': society_name,
       'date': date,
       'description':description,
-      'ticket_price':ticket_price
+      'ticket_price':ticket_price,
+      'imageUrl':imageUrl
     };
   }
 }
