@@ -59,10 +59,9 @@ class SocietyCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: const EdgeInsets.only(top:10,left:10,right:10),
+        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
         margin: const EdgeInsets.only(bottom: 1),
         height: 170,
-
         child: Card(
           child: Container(
             decoration: BoxDecoration(
@@ -88,28 +87,34 @@ class SocietyCard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                Text(
-                  this.society!,
-                  style: TextStyle(
-                    fontSize: 30,
-                    letterSpacing: 3,
-                    fontFamily:'Teko',
-                    fontWeight: FontWeight.bold,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 2
-                      ..color = Colors.black,
+                Container(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Text(
+                    this.society!,
+                    style: TextStyle(
+                      fontSize: 30,
+                      letterSpacing: 3,
+                      fontFamily: 'Teko',
+                      fontWeight: FontWeight.bold,
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 2
+                        ..color = Colors.black,
+                    ),
                   ),
                 ),
                 // The text inside
-                Text(
-                  this.society!,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontFamily:'Teko',
-                    letterSpacing: 3,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Container(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Text(
+                    this.society!,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontFamily: 'Teko',
+                      letterSpacing: 3,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],

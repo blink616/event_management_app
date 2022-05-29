@@ -30,71 +30,74 @@ class EventCard extends StatelessWidget {
       },
       child: Container(
         height: 150,
-        margin: const EdgeInsets.only(
-            bottom: 10, left: 15, right: 15, top: 10),
+        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.only(bottom: 10, left: 15, right: 15, top: 10),
         decoration: BoxDecoration(
-
-          boxShadow: [
-            new BoxShadow(
-              color: Colors.black,
-              blurRadius: 3.0,
-              spreadRadius: 0, //extend the shadow
-              offset: Offset(
-                3.0, // Move to right 10  horizontally
-                3.0, // Move to bottom 10 Vertically
-              ),
-            ),
-          ],
+          color: Colors.white,
+          border: Border.all(
+            color: Colors.blue,
+            width: 1.5,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
         ),
         child: Container(
             color: Colors.white,
-
-            child:Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(width:10),
-            Container(
-              height: 140,
-              width: 140,
-              padding: EdgeInsets.all(0),
-              //margin: const EdgeInsets.only(
-                //  bottom: 30, left: 30, right: 30, top: 30),
-              //margin: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-
-                image: DecorationImage(
-                  image: AssetImage('assets/images/society.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(width:10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-              SizedBox(height:10),
-              Row(
-
-                children: <Widget>[Text(
-                  this.event!.name!,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 25,
-                      color: Colors.black,
-                      fontFamily: 'Teko'),
-                ),],
-              ),
-              Row(children: <Widget>[
-                Icon(
-                  Icons.calendar_month,
-                  color: Colors.blueAccent,
+                SizedBox(width: 10),
+                Container(
+                  height: 140,
+                  width: 140,
+                  padding: EdgeInsets.all(0),
+                  //margin: const EdgeInsets.only(
+                  //  bottom: 30, left: 30, right: 30, top: 30),
+                  //margin: const EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10.0),
+                    ),
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/society.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                Text(this!.event!.date!),
-              ],)
-            ],)
-          ],
-        )),
+                SizedBox(width: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 10),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          this.event!.name!,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              color: Colors.black,
+                              //fontFamily: 'Teko'
+                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.calendar_month,
+                          color: Colors.blueAccent,
+                        ),
+                        Text(this!.event!.date!),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            )),
       ),
     );
   }

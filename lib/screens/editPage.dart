@@ -51,11 +51,11 @@ class EditPageState extends State<EditPage> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 310,
-              color: Colors.blue[500],
+              height: 250,
+              color: Colors.white,
               child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 120),
+                  const SizedBox(height: 60),
                   Row(
                     children: const <Widget>[
                       SizedBox(width: 150),
@@ -73,12 +73,13 @@ class EditPageState extends State<EditPage> {
                     const SizedBox(width: 150),
                     Container(
                       width: 200,
+                      color: Colors.white,
                       child: TextField(
                         controller: nameController,
                         style: const TextStyle(
                           height: 0,
                           fontSize: 20,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                         maxLength: 15,
                         decoration: InputDecoration(
@@ -94,112 +95,110 @@ class EditPageState extends State<EditPage> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-              child: Container(
-                //color: Colors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const SizedBox(height: 15),
-                    Row(
-                      children: <Widget>[
-                        const Icon(
-                          Icons.email,
+            Container(
+              padding: EdgeInsets.only(right:30,bottom:30,left:30),
+              color: Colors.white,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 15),
+                  Row(
+                    children: <Widget>[
+                      const Icon(
+                        Icons.email,
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: TextField(
+                          controller: emailController,
+                          style: const TextStyle(
+                            height: 2,
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                          maxLength: 40,
+                          decoration: InputDecoration(
+                            counter: Container(),
+                            border: InputBorder.none,
+                            hintText: widget.email,
+                          ),
                         ),
-                        SizedBox(
+                      ),
+                    ],
+                  ),
+                  const Divider(color: Colors.black),
+                  Row(
+                    children: <Widget>[
+                      const Icon(
+                        Icons.house,
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: TextField(
+                          controller: deptController,
+                          style: const TextStyle(
+                            height: 2,
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                          maxLength: 40,
+                          decoration: InputDecoration(
+                            counter: Container(),
+                            border: InputBorder.none,
+                            hintText: widget.dept,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(color: Colors.black),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: const <Widget>[
+                      Text("ABOUT",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: SizedBox(
                           width: 300,
                           child: TextField(
-                            controller: emailController,
+                            controller: aboutController,
                             style: const TextStyle(
                               height: 2,
                               fontSize: 15,
                               color: Colors.black,
                             ),
-                            maxLength: 40,
+                            maxLength: 255,
+                            maxLines: 5,
                             decoration: InputDecoration(
                               counter: Container(),
                               border: InputBorder.none,
-                              hintText: widget.email,
+                              hintText: widget.about,
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    const Divider(color: Colors.black),
-                    Row(
-                      children: <Widget>[
-                        const Icon(
-                          Icons.house,
-                        ),
-                        SizedBox(
-                          width: 300,
-                          child: TextField(
-                            controller: deptController,
-                            style: const TextStyle(
-                              height: 2,
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
-                            maxLength: 40,
-                            decoration: InputDecoration(
-                              counter: Container(),
-                              border: InputBorder.none,
-                              hintText: widget.dept,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Divider(color: Colors.black),
-                    const SizedBox(height: 15),
-                    Row(
-                      children: const <Widget>[
-                        Text("ABOUT",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      children: <Widget>[
-                        Flexible(
-                          child: SizedBox(
-                            width: 300,
-                            child: TextField(
-                              controller: aboutController,
-                              style: const TextStyle(
-                                height: 2,
-                                fontSize: 15,
-                                color: Colors.black,
-                              ),
-                              maxLength: 255,
-                              maxLines: 5,
-                              decoration: InputDecoration(
-                                counter: Container(),
-                                border: InputBorder.none,
-                                hintText: widget.about,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    const Divider(color: Colors.black),
-                    const SizedBox(height: 15),
-                    Row(
-                      children: const <Widget>[
-                        Text("SOCIETIES",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    const Divider(color: Colors.black),
-                    const SizedBox(height: 15),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  const Divider(color: Colors.black),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: const <Widget>[
+                      Text("SOCIETIES",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  const Divider(color: Colors.black),
+                  const SizedBox(height: 15),
+                ],
               ),
             ),
           ],

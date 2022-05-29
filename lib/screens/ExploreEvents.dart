@@ -35,26 +35,28 @@ class Explore extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        FutureBuilder(
-            future: getData(),
-            builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
-              if (asyncSnapshot.data == null) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return Expanded(
-                    child: ListView.builder(
-                        itemCount: events?.length,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return EventCard(
-                            event: events?.elementAt(index),
-
-                          );
-
-                        }));
-              }
-            }),
-      ]),
+      body: Container(
+        color: Colors.white,
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          FutureBuilder(
+              future: getData(),
+              builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
+                if (asyncSnapshot.data == null) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return Expanded(
+                      child: ListView.builder(
+                          itemCount: events?.length,
+                          itemBuilder: (BuildContext ctx, int index) {
+                            return EventCard(
+                              event: events?.elementAt(index),
+                            );
+                          }));
+                }
+              }),
+        ]),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(

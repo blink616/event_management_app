@@ -30,6 +30,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
 
+  //dropdown of societies
+  final items = ['SEECS', 'NBS', 'S3H', 'SMME', 'SADA', 'SCME'];
+  var dept_name;
+
+  DropdownMenuItem<String> buildMenuItem(String item) =>
+      DropdownMenuItem(value: item, child: Text(item));
+
   @override
   Widget build(BuildContext context) {
     //first name field
@@ -75,29 +82,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ));
 
     //dept field
-    final deptField = TextFormField(
-        autofocus: false,
-        controller: deptEditingController,
-        keyboardType: TextInputType.name,
-        validator: (value) {
-          RegExp regex = RegExp(r'^.{3,}$');
-          if (value!.isEmpty) {
-            return ("Department cannot be Empty");
-          }
-          if (!regex.hasMatch(value)) {
-            return ("Enter Valid Department(Min. 3 Character)");
-          }
-          return null;
-        },
-        onSaved: (value) {
-          deptEditingController.text = value!;
-        },
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          hintText: "Department",
-        ));
-
-    //dept field
     final aboutField = TextFormField(
         autofocus: false,
         controller: aboutEditingController,
@@ -118,7 +102,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           hintText: "About",
-
         ));
 
     //email field
@@ -234,8 +217,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     const SizedBox(height: 20),
                     secondNameField,
                     const SizedBox(height: 20),
-                    deptField,
-                    const SizedBox(height: 20),
+                    Row(
+                      children: <Widget>[
+                        Text("Select Department: ",
+                            style: TextStyle(
+                              fontSize: 15,
+                            )),
+                        Container(
+                          padding: EdgeInsets.only(right:20,left:20),
+                          child: DropdownButtonHideUnderline(
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: DropdownButton<String>(
+                                  value: dept_name,
+                                  items: items.map(buildMenuItem).toList(),
+                                  onChanged: (value) =>
+                                      setState(() => dept_name = value)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Divider(color: Colors.black,),
+                    const SizedBox(height: 10),
                     emailField,
                     const SizedBox(height: 20),
                     aboutField,

@@ -22,12 +22,12 @@ class _EventPageState extends State<EventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      margin: const EdgeInsets.only(top: 70),
-      padding: const EdgeInsets.all(0),
-      height: 1000.0,
-      width: 500.0,
-      // alignment: FractionalOffset.center,
-      child: Column(
+        margin: const EdgeInsets.only(top: 70),
+        padding: const EdgeInsets.all(0),
+        height: 1000.0,
+        width: 500.0,
+        // alignment: FractionalOffset.center,
+        child: Column(
         //alignment:new Alignment(x, y)
         children: <Widget>[
           Container(
