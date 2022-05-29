@@ -87,7 +87,7 @@ class MyDialog extends StatefulWidget {
 }
 
 class _MyDialogState extends State<MyDialog> {
-  final items = ['ACM', 'NLF', 'NMC', 'AIESEC'];
+  final items = ['AIESEC', 'IEEE', 'NCBS', 'NMC', 'NCSC', 'NMX', 'ACM', 'NFAC'];
   DateTime selectedDate = DateTime.now();
   String? event_description;
   String? event_name;

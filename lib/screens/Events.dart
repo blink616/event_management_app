@@ -127,11 +127,11 @@ class EventCard extends StatelessWidget {
  EventModel? event;
    String? _imageUrl;
   Future<String> downloadURL() async{
-     print(event!.name);
-     print(event!.imageUrl);
+     
+     
      final ref = await FirebaseStorage.instance.ref().child(event!.name.toString()).child(event!.imageUrl.toString());
      _imageUrl = await ref.getDownloadURL();
-     print(_imageUrl);
+     
      return _imageUrl.toString();
    }
 

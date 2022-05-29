@@ -54,6 +54,7 @@ class SocietyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print(society);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => EventList(society: society)),
